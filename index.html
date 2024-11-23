@@ -334,33 +334,53 @@ itemInput.addEventListener('keydown', (event) => {
 
         // Mode rahasia: Mode 1, Mode 2, Mode Normal
         function spinWheel() {
-            let filteredItems = items;
+    let filteredItems = items;
 
-            if (secretMode === 1) {
-                // Mode 1: Pilih nama pertama dan tetapkan role menjadi Mage
-                filteredItems = [items[0]];
-                filteredItems[0].role = 'Mage';
-            } else if (secretMode === 2) {
-                // Mode 2: Kecualikan nama pertama dan role Mage
-                filteredItems = items.filter(item => item.name !== items[0].name && item.role !== 'Mage');
+    if (secretMode === 1) {
+        // Mode 1: Pilih nama pertama dan set role menjadi Mage
+        filteredItems = [items[0]];
+        filteredItems[0].role = 'Mage';
+    } else if (secretMode === 2) {
+        // Mode 2: Kecualikan nama pertama dan role Mage
+        filteredItems = items.filter(item => item.name !== items[0].name && item.role !== 'Mage');
+    } else if (secretMode === 3) {
+        // Mode 3: Normal, tetapi nama pertama tidak mendapatkan role Hyper
+        filteredItems = items.map(item => {
+            if (item.name === items[0].name && item.role === 'Hyper') {
+                item.role = getRandomRole();
             }
+            return item;
+        });
+    }
 
-            const targetIndex = Math.floor(Math.random() * filteredItems.length);
-            const targetItem = filteredItems[targetIndex];
-            const targetAngle = (360 / items.length) * items.indexOf(targetItem);
-            const randomAngle = 3600 + targetAngle;
-            const spinTime = 5000;
-            const currentDateTime = new Date().toLocaleString();
-            let startTime = null;
+    const targetIndex = Math.floor(Math.random() * filteredItems.length);
+    const targetItem = filteredItems[targetIndex];
+    const targetAngle = (360 / items.length) * items.indexOf(targetItem);
+    const randomAngle = 3600 + targetAngle; // Spin lebih dari 10 putaran
+    const spinTime = 5000;
+    const currentDateTime = new Date().toLocaleString();
+    let startTime = null;
 
-            function rotate(timestamp) {
-                if (!startTime) startTime = timestamp;
-                const elapsed = timestamp - startTime;
+    function rotate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
 
-                if (elapsed < spinTime) {
-                    angle = (randomAngle * (elapsed / spinTime)) % 360;
-                    drawRotatedWheel();
-                    requestAnimationFrame(rotate);
+        if (elapsed < spinTime) {
+            angle = (randomAngle * (elapsed / spinTime)) % 360;
+            drawRotatedWheel();
+            requestAnimationFrame(rotate);
+        } else {
+            angle = targetAngle;
+            drawRotatedWheel();
+            resultDiv.textContent = `Result: ${targetItem.name} - Role: ${targetItem.role}`;
+            history.push({ item: targetItem.name, role: targetItem.role, date: currentDateTime });
+            selectedItem = targetItem;
+            showModal(targetItem);
+        }
+    }
+
+    requestAnimationFrame(rotate);
+}
                 } else {
                     angle = targetAngle;
                     drawRotatedWheel();
