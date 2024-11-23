@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan Eka & Rizki</title>
+  <style>
+    /* Reset default styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080') no-repeat center center/cover;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: linear-gradient(to right, #ff7e5f, #feb47b);
+      color: #fff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      animation: slideIn 1.5s ease-in-out;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    .couple {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: zoomIn 1.5s ease-in-out;
+    }
+
+    .couple h2 {
+      font-size: 2rem;
+      color: #ffddc1;
+    }
+
+    .couple p {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .event-details {
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    .event-details h2 {
+      font-size: 1.8rem;
+      color: #ffddc1;
+      margin-bottom: 10px;
+    }
+
+    .event-details p {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+
+    .confirmation {
+      text-align: center;
+      margin: 30px 0;
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    .confirmation form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .confirmation input {
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 10px;
+      border: 1px solid #ffddc1;
+      border-radius: 5px;
+      color: #333;
+    }
+
+    .confirmation button {
+      padding: 10px 20px;
+      background-color: #ff7e5f;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .confirmation button:hover {
+      background-color: #feb47b;
+    }
+
+    .map-container {
+      margin-top: 20px;
+      text-align: center;
+      animation: slideUp 2s ease-in-out;
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+
+    footer p {
+      font-size: 1rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-memories.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <div class="container">
+    <header>
+      <h1>Undangan Pernikahan</h1>
+      <p>Dengan penuh kebahagiaan, kami mengundang Anda untuk hadir di acara pernikahan kami</p>
+    </header>
+
+    <section class="couple">
+      <h2>Eka & Rizki</h2>
+      <p>"Dan di antara tanda-tanda kekuasaan-Nya adalah Dia menciptakan untukmu pasangan-pasangan dari jenismu sendiri..." (QS. Ar-Rum: 21)</p>
+    </section>
+
+    <section class="event-details">
+      <h2>Detail Acara</h2>
+      <p><strong>Hari/Tanggal:</strong> Sabtu, 10 Januari 2025</p>
+      <p><strong>Waktu:</strong> 10:00 WIB - Selesai</p>
+      <p><strong>Tempat:</strong> Duman</p>
+    </section>
+
+    <section class="confirmation">
+      <h2>Konfirmasi Kehadiran</h2>
+      <form id="rsvpForm">
+        <input type="text" id="name" name="name" placeholder="Masukkan Nama Anda" required>
+        <button type="submit">Kirim Konfirmasi</button>
+      </form>
+      <p id="confirmationMessage" style="margin-top: 10px; font-size: 1.2rem; color: #ffddc1;"></p>
+    </section>
+
+    <section class="map-container">
+      <h2>Lokasi Pernikahan</h2>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.318084382343!2d116.15270751478391!3d-8.653938993774053!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcdbf4ef768c917%3A0x3c90c22b2c2b30ed!2sDuman!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" allowfullscreen loading="lazy"></iframe>
+    </section>
+
+    <footer>
+      <p>© 2025 Eka & Rizki. Semua hak dilindungi.</p>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const message = `Terima kasih, ${name}. Kehadiran Anda sangat berarti bagi kami!`;
+      document.getElementById('confirmationMessage').innerText = message;
+      document.getElementById('rsvpForm').reset();
+    });
+  </script>
+</body>
+</html>
