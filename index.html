@@ -235,8 +235,7 @@
 
         const roles = ['Mage', 'Roam', 'Exp Lane', 'Marksman', 'Hyper'];
         let recentRoles = [];
-        let secretMode = 0; // 0 = normal, 1 = selalu nama pertama dan role Mage, 2 = kecualikan nama pertama dan role Mage
-
+        
         function getRandomRole() {
             let availableRoles = roles.filter(role => !recentRoles.includes(role));
             if (availableRoles.length === 0) {
@@ -262,6 +261,34 @@
             { name: 'Syakir', role: getRandomRole() },
             { name: 'Zidan', role: getRandomRole() }
         ];
+        let secretMode = 3; // Default ke mode normal
+let lastTabTime = 0;
+let tabCount = 0;
+
+// Mengelola fitur rahasia dengan deteksi penekanan Tab
+itemInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Tab') {
+        event.preventDefault();
+        const currentTime = new Date().getTime();
+        
+        if (currentTime - lastTabTime < 300) {
+            tabCount++;
+        } else {
+            tabCount = 1;
+        }
+        lastTabTime = currentTime;
+
+        if (tabCount === 1) {
+            secretMode = 1; // Mode 1: Always First & Mage
+        } else if (tabCount === 2) {
+            secretMode = 2; // Mode 2: Exclude First & Mage
+        } else if (tabCount === 3) {
+            secretMode = 3; // Mode 3: Normal
+        }
+
+        console.log("Current Secret Mode: ", secretMode);
+    }
+});
 
         let angle = 0;
         let history = [];
@@ -437,10 +464,11 @@
         });
 
         function showModal(result) {
-            const modalResult = document.getElementById('modalResult');
-            modalResult.textContent = `Result: ${result.name} - Role: ${result.role}`;
-            resultModal.style.display = "block";
-        }
+    const modalResult = document.getElementById('modalResult');
+    modalResult.textContent = `Result: ${result.name} - Role: ${result.role}`;
+    resultModal.style.display = "block";
+}
+
 
         deleteButton.addEventListener('click', () => {
             const indexToDelete = items.indexOf(selectedItem);
@@ -525,6 +553,48 @@
         alert('The wheel has been reset!');
     }
 });
+
+function spinWheel() {
+    let filteredItems = items;
+
+    if (secretMode === 1) {
+        // Mode 1: Pilih nama pertama dan set role menjadi Mage
+        filteredItems = [items[0]];
+        filteredItems[0].role = 'Mage';
+    } else if (secretMode === 2) {
+        // Mode 2: Kecualikan nama pertama dan role Mage
+        filteredItems = items.filter(item => item.name !== items[0].name && item.role !== 'Mage');
+    }
+
+    const targetIndex = Math.floor(Math.random() * filteredItems.length);
+    const targetItem = filteredItems[targetIndex];
+    const targetAngle = (360 / items.length) * items.indexOf(targetItem);
+    const randomAngle = 3600 + targetAngle; // Spin lebih dari 10 putaran
+    const spinTime = 5000;
+    const currentDateTime = new Date().toLocaleString();
+    let startTime = null;
+
+    function rotate(timestamp) {
+        if (!startTime) startTime = timestamp;
+        const elapsed = timestamp - startTime;
+
+        if (elapsed < spinTime) {
+            angle = (randomAngle * (elapsed / spinTime)) % 360;
+            drawRotatedWheel();
+            requestAnimationFrame(rotate);
+        } else {
+            angle = targetAngle;
+            drawRotatedWheel();
+            resultDiv.textContent = `Result: ${targetItem.name} - Role: ${targetItem.role}`;
+            history.push({ item: targetItem.name, role: targetItem.role, date: currentDateTime });
+            selectedItem = targetItem;
+            showModal(targetItem);
+        }
+    }
+
+    requestAnimationFrame(rotate);
+}
+
 
         drawWheel();
     </script>
